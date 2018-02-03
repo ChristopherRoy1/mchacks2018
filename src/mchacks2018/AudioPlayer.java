@@ -6,40 +6,55 @@ import java.io.File;
 public class AudioPlayer {
 
 	private File soundFile;
-	private static Clip playingClip;
-	private AudioInputStream audioStream;
+	private long runtime;
+	private Clip playingClip;
 	
 	
-	static void PlaySound(File sound) {
-		try {
+	public AudioPlayer(String filename) {
+		try {			
+			soundFile = new File(filename);			
 			playingClip = AudioSystem.getClip();
-			playingClip.open(AudioSystem.getAudioInputStream(sound));		
-			System.out.println("Reach here");
-			playingClip.start();
-					
-			
-			long runtime = playingClip.getMicrosecondLength()/1000; //[seconds]	
-			System.out.println(runtime);
+			playingClip.open(AudioSystem.getAudioInputStream(soundFile));
+						
+			runtime = playingClip.getMicrosecondLength()/1000;
 			Thread.sleep(runtime);
+		} catch (Exception e) {
+			
 		}
-		catch (Exception e){
-			System.out.println("error: " + e.getMessage());			
-		}
+		
+		
+	}
+	public void playAudio() {
+		playingClip.start();
 	}
 	
-	public static void pauseAudio() {
+	
+	public void pauseAudio() {
 		playingClip.stop();
 	}
 	
-	public static void stopAudio() {
+	public void resumeAudio() {
+		if(playingClip.isOpen() && !playingClip.isActive()) {
+			playingClip.start();
+		}
+	}
+	
+	public void stopAudio() {
 		playingClip.stop();
 		playingClip.close();		
 	}
 	
-	public static void changeVolume(){
+	public void changeVolume(int sliderValue){
 		FloatControl volumeControl = (FloatControl) playingClip.getControl(FloatControl.Type.MASTER_GAIN);
+		volumeControl.setValue(sliderValue);
+	}
+	
+	public void changePosition(long slidervalue) {
+		playingClip.setMicrosecondPosition(slidervalue);
 		
 	}
+	
+	
 	
 	
 	
