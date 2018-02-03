@@ -9,7 +9,9 @@ public class AudioPlayer {
 	private long runtime;
 	private Clip playingClip;
 	
-	
+	public static void main(String [] args) {
+		
+	}
 	public AudioPlayer(String filename) {
 		try {			
 			soundFile = new File(filename);			
