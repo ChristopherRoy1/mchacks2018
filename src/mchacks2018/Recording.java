@@ -11,7 +11,6 @@ public interface Recording {
 	public String getMonth();
 	public int getMonthNumber();
 	public String getSubject();
-	public String getTime();
 	public String getTitle();
 	public int getYear();
 	public void setDate(String date);

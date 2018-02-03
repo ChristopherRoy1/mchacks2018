@@ -2,15 +2,11 @@ package mchacks2018;
 import java.io.*;
 
 // Make an object AcademicRecording that corresponds to a single instance of a class recording:
-public class AcademicRecording implements Serializable, Recording{
-	private String prof, location, school, subject, description, date, time;
+public class MeetingRecording implements Serializable, Recording{
+	private String subject, description, date, time;
 	
 	// Constructor:
-	public AcademicRecording(String prof, String location, String school, String subject, 
-			String description, String date, String time) {
-		this.prof = prof;
-		this.location = location;
-		this.school = school;
+	public MeetingRecording(String subject, String description, String date, String time) {
 		this.subject = subject;				// Subject (i.e MATH-323 or Town Hall Meeting)
 		this.description = description;		// Description (i.e Lecture on Graphs -- make this optional???)
 		this.date = date;					// Date in form mmddyy where event is at 20yy/mm/dd
@@ -18,14 +14,11 @@ public class AcademicRecording implements Serializable, Recording{
 	}
 	
 	// Getter Methods:
-	public String getProf() {
-		return this.prof;
+	public String getTitle() {
+		return this.getSubject() + " (" + this.getDate() + "): " + this.getDescription();
 	}
-	public String getLocation() {
-		return this.location;
-	}
-	public String getSchool() {
-		return this.school;
+	public String getFilename() {
+		return this.getSubject() + " " + this.getMonth() + this.getDay();
 	}
 	public String getSubject() {
 		return this.subject;
@@ -80,27 +73,15 @@ public class AcademicRecording implements Serializable, Recording{
 	public String getDate() {
 		return this.getMonth() + " " + this.getDay() + ", " + this.getYear();
 	}
+	public String getTime() {
+		return this.time;
+	}
 	public String getHour() {
 		return this.time.substring(0,1);
 	}
 	public String getMinute() {
 		return this.time.substring(2,3);
 	}	
-	public String getTitle() {
-		return this.getSubject() + " (" + this.getDate() + "): " + this.getDescription();
-	}
-	public String getFilename() {
-		return this.getSubject() + " " + this.getMonth() + this.getDay();
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	// Setter Methods:
 	public void setSubject(String subject) {
