@@ -112,7 +112,7 @@ public class SaverIO {
 	// Main Method:
 	public static void main(String[] args) {
 		Recording myRecording = new Recording("MATH-323", "First Probability Lecture", "010318", "08300");
-		System.out.println(myRecording.getTitle());
+		System.out.println(myRecording.getTitle() + "w");
 		try {
 			saveToFile(myRecording);
 		}
