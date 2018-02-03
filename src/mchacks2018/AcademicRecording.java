@@ -1,8 +1,8 @@
 package mchacks2018;
-import java.io.Serializable;
+import java.io.*;
 
-//Make an object "Recording" that has general parameters for a recording (can extend to lecture/meeting objects):
-public class AcademicRecording implements Serializable{
+// Make an object AcademicRecording that corresponds to a single instance of a class recording:
+public class AcademicRecording implements Serializable, Recording{
 	private String subject, description, date, time;
 	
 	// Constructor:
@@ -25,9 +25,6 @@ public class AcademicRecording implements Serializable{
 	}
 	public String getDescription() {
 		return this.description;
-	}
-	public String getDateString() {
-		return this.date;
 	}
 	public int getMonthNumber() {
 		return Integer.parseInt(this.date.substring(0,2));
