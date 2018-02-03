@@ -16,7 +16,9 @@ class Recording implements Serializable{
 	// Getter Methods:
 	public String getTitle() {
 		return this.getSubject() + " (" + this.getDate() + "): " + this.getDescription();
-		// DO THIS - returns Subject (date, time): Description
+	}
+	public String getFilename() {
+		return this.getSubject() + " " + this.getMonth() + this.getDay();
 	}
 	public String getSubject() {
 		return this.subject;
@@ -106,24 +108,26 @@ class Recording implements Serializable{
 }
 
 
-// SaverIO Class will serialize(save) objects as binary files.
+// SaverIO Class will serialize(save) objects as binary files and deserialize(write) objects from their serialized binary files:
 public class SaverIO {
 	
 	// Main Method:
 	public static void main(String[] args) {
 		Recording myRecording = new Recording("MATH-323", "First Probability Lecture", "010318", "08300");
-		System.out.println(myRecording.getTitle() + "w");
+		System.out.println(myRecording.getTitle());
 		try {
 			saveToFile(myRecording);
 		}
 		catch (IOException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 	}
 	
+	// saveToFile class will serialize an object
 	public static void saveToFile(Recording r) throws IOException {
-		ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("Recording.bin"));
+		ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(r.getFilename() + ".bin"));
 			objectOutputStream.writeObject(r);
+			objectOutputStream.close();
 	}
 	
 	public static void getFromFile() {
