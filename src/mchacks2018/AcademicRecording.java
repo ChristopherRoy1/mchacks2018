@@ -17,6 +17,15 @@ public class AcademicRecording implements Serializable, Recording{
 		this.time = time;					// Start time in form hhmmT where T is either AM/PM (boolean?) 
 	}
 	
+	public AcademicRecording(String prof, String location, String school, String subject, 
+			String description) {
+		this.prof = prof;
+		this.location = location;
+		this.school = school;
+		this.subject = subject;				// Subject (i.e MATH-323 or Town Hall Meeting)
+		this.description = description;		// Description (i.e Lecture on Graphs -- make this optional???)
+	}
+	
 	// Getter Methods:
 	public String getProf() {
 		return this.prof;
