@@ -136,26 +136,6 @@ public class AcademicRecording implements Serializable, Recording{
 	
 	
 	public static void main(String[] args) {
-		AcademicRecording myRecording = new AcademicRecording("Prof Adam Wertheimer",
-				"Adams Auditorium","McGill University","MATH-323", "First Probability Lecture", "010318", "08300");
-		try{
-			getFromFile("src/mchacks2018/binaries/" + myRecording.getFilename() + ".bin");
-		}
-		catch(IOException | ClassNotFoundException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
-	public static void saveToFile(AcademicRecording r) throws IOException {
-		ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("src/mchacks2018/binaries/" + r.getFilename() + ".bin"));
-			objectOutputStream.writeObject(r);
-			objectOutputStream.close();
-	}
-	
-	public static void getFromFile(String filename) throws IOException, ClassNotFoundException {
-		ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(filename));
-		AcademicRecording ar = (AcademicRecording) objectInputStream.readObject();
-		System.out.println(ar);
-		objectInputStream.close();
+		System.out.println("I am the main method");
 	}
 }
