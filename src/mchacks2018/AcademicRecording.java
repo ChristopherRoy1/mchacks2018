@@ -87,7 +87,7 @@ public class AcademicRecording implements Serializable, Recording{
 		return this.time.substring(2,3);
 	}	
 	public String getTitle() {
-		return this.getSubject() + " (" + this.getDate() + "): " + this.getDescription();
+		return this.getSubject() + " (" + this.getProf() + ", " + this.getSchool() + ") " + this.getDate() + ": " + this.getDescription();
 	}
 	public String getFilename() {
 		return this.getSubject() + " " + this.getMonth() + this.getDay();
@@ -120,5 +120,31 @@ public class AcademicRecording implements Serializable, Recording{
 	@Override
 	public String toString() {
 		return this.getTitle();
+	}
+	
+	
+	
+	
+	
+	public static void main(String[] args) {
+		AcademicRecording myRecording = new AcademicRecording("Prof Adam Wertheimer",
+				"Adams Auditorium","McGill University","MATH-323", "First Probability Lecture", "010318", "08300");
+		System.out.println(myRecording.getTitle());
+		try {
+			saveToFile(myRecording);
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public static void saveToFile(AcademicRecording r) throws IOException {
+		ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("src/mchacks2018/binaries/" + r.getFilename() + ".bin"));
+			objectOutputStream.writeObject(r);
+			objectOutputStream.close();
+	}
+	
+	public static void getFromFile() {
+		
 	}
 }
