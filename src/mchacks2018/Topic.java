@@ -3,7 +3,7 @@ package mchacks2018;
 import java.util.ArrayList;
 
 public class Topic {
-	String name;
+	String dateCreated;
 	ArrayList<Recording> recordings;
 	int numRecordings;
 	
@@ -20,15 +20,13 @@ public class Topic {
 		return recordings.get(index);
 	}
 	
-	public Recording removeRecording(Recording a) {
-		
+	public Recording removeRecording(Recording a) {		
 		for(int i = 0; i < recordings.size(); i++) {
 			if(recordings.get(i).equals(a)) {
 				return a;
 			}
 		}
-		return null;
-				
+		return null;				
 	}
 	
 }
