@@ -1,11 +1,15 @@
 package mchacks2018;
 
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class Controller {
 	boolean isPlaying;
 	JFrame currentView;
-	//add objects that we need here
+	Topic currentTopic;
+	Recording currentRecording;
+	ArrayList<Recording> listOfRecordings;
+	//add any more objects that we need here
 	
 	
 	// Constructors that make sure that only one instance of controller exists (called myController):
@@ -19,6 +23,12 @@ public class Controller {
 		}
 		return myController;
 	}
+	
+	//
+	
+	
+	
+	
 	
 	
 	
