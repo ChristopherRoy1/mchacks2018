@@ -19,7 +19,7 @@ public class Controller {
 		}
 	public static Controller getInstance() {
 		if(myController == null) {
-			myController = new Controller(false, null, null, null, null);
+			myController = new Controller(false, null, null, null, new ArrayList<Recording>());
 		}
 		return myController;
 	}
