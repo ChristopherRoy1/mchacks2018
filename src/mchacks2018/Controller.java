@@ -14,12 +14,12 @@ public class Controller {
 	
 	// Constructors that make sure that only one instance of controller exists (called myController):
 	private static Controller myController = null;
-	private Controller() {
-	// does nothing
+	private Controller(boolean isPlaying, JFrame currentView, Topic currentTopic, 
+			Recording currentRecording, ArrayList<Recording> listOfRecordings) {
 		}
 	public static Controller getInstance() {
 		if(myController == null) {
-			myController = new Controller();
+			myController = new Controller(false, null, null, null, null);
 		}
 		return myController;
 	}
