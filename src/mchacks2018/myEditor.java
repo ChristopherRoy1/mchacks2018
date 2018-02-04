@@ -40,6 +40,7 @@ public class myEditor extends JFrame implements ActionListener {
 	private long recordStart;
 	private JLabel lblRecordingInProcess;
 	private JButton btnStop;
+	///
 
 	public myEditor() {
 		super("Document");
