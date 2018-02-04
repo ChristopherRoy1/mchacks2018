@@ -1,4 +1,4 @@
-package mchacks2018;
+package frontend;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
