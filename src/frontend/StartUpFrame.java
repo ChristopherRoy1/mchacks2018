@@ -15,9 +15,16 @@ public class StartUpFrame extends JFrame {
 	public StartUpFrame() {
 		
 		JButton btnasdf = new JButton("Create New Topic");
+		btnasdf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFrame frame2 = new JFrame("New Frame hello");
+				frame2.setVisible(true);
+				frame2.setSize(600,600);
+			}
+		});
 		getContentPane().add(btnasdf, BorderLayout.WEST);
 		btnasdf.setPreferredSize(new Dimension(2*430/7,100));
-		
+				
 		JButton btnNewButton = new JButton("Work in Existing Topic");
 		getContentPane().add(btnNewButton, BorderLayout.CENTER);
 		btnNewButton.setPreferredSize(new Dimension(3*430/7,100));
