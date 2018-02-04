@@ -16,27 +16,15 @@ import java.awt.GridBagLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JCheckBox;
+import java.util.ArrayList;
 
 public class PlaybackFrame extends JFrame{
-	public PlaybackFrame() {
+	public PlaybackFrame(ArrayList<notes> notes) {
 		
 		VolumePanel volumePanel = new VolumePanel();
 		getContentPane().add(volumePanel, BorderLayout.SOUTH);
 		
-		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(10, 1, 0, 0));
-		
-		JTextPane txtpnAdamSucks = new JTextPane();
-		txtpnAdamSucks.setText("Adam sucks");
-		panel.add(txtpnAdamSucks);
-		
-		JTextPane txtpnBigTimeNote = new JTextPane();
-		txtpnBigTimeNote.setText("big time note takeer");
-		panel.add(txtpnBigTimeNote);
-		
-		JTextPane txtpnWhatIsUp = new JTextPane();
-		txtpnWhatIsUp.setText("What is up");
-		panel.add(txtpnWhatIsUp);
+		NoteDisplayPanel noteDisplayPanel = new NoteDisplayPanel((ArrayList) null);
+		getContentPane().add(noteDisplayPanel, BorderLayout.CENTER);
 	}
 }
