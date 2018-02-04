@@ -15,9 +15,14 @@ public class AudioRecorder {
 		Port sourceLine;
 		TargetDataLine targetLine;
 		
+		
+		//FIX LATER, not guaranteed to work
+		Line.Info targetLineInfo = microphone.getTargetLineInfo()[0];
+		
+		
 		try {
 			 sourceLine = (Port) microphone.getLine(Port.Info.MICROPHONE);
-			 targetLine = (TargetDataLine) microphone.getLine(TargetDataLine.Info)
+			 targetLine = (TargetDataLine) microphone.getLine(targetLineInfo);
 		} 
 		catch(Exception e) {
 			
