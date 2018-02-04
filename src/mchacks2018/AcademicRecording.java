@@ -1,28 +1,33 @@
 package mchacks2018;
 import java.io.*;
+import java.util.ArrayList;
+
 
 // Make an object AcademicRecording that corresponds to a single instance of a class recording:
 public class AcademicRecording implements Serializable, Recording{
 	private String prof, location, school, subject, description, date, time;
+	private ArrayList<Note> listOfNotes;
 	
 	// Constructors:
-	public AcademicRecording(String prof, String location, String school, String subject, 
-			String description, String date, String time) {
+	public AcademicRecording(String prof, String location, String school, String subject, String description, 
+			String date, String time) {
 		this.prof = prof;
 		this.location = location;
 		this.school = school;
 		this.subject = subject;				// Subject (i.e MATH-323 or Town Hall Meeting)
 		this.description = description;		// Description (i.e Lecture on Graphs -- make this optional???)
 		this.date = date;					// Date in form mmddyy where event is at 20yy/mm/dd
-		this.time = time;					// Start time in form hhmmT where T is either AM/PM (boolean?) 
+		this.time = time;					// Start time in form hhmmT where T is either AM/PM (boolean?)
+		this.listOfNotes = new ArrayList<Note>();
 	}
 	
 	public AcademicRecording(String prof, String location, String school, String subject, String description) {
-		this.prof = prof;
-		this.location = location;
-		this.school = school;
+		this.prof = prof;					// Lecturer (i.e Prof. Albert Einstein)
+		this.location = location;			// Location/Room (i.e Burnside 1B23)
+		this.school = school;				// School/Institution (i.e McGill University)
 		this.subject = subject;				// Subject (i.e MATH-323 or Town Hall Meeting)
 		this.description = description;		// Description (i.e Lecture on Graphs -- make this optional???)
+		this.listOfNotes = new ArrayList<Note>();
 	}
 	
 	// Getter Methods:
