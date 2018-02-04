@@ -58,6 +58,8 @@ public class NotePanel extends JPanel {
 	
 	private void createNote(Note currNote) {
 		JTextArea newArea = new JTextArea();
+		newArea.setLineWrap(true);
+		newArea.setWrapStyleWord(true);
 		newArea.setText(currNote.getContent());
 		GridBagConstraints gbc_newArea = new GridBagConstraints();
 		gbc_newArea.insets = new Insets(0, 0, 0, 5);
@@ -79,25 +81,8 @@ public class NotePanel extends JPanel {
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
-		setLayout(gridBagLayout);
+		setLayout(gridBagLayout);	
 		
-		JTextArea txtrHello = new JTextArea();
-		txtrHello.setEditable(false);
-		txtrHello.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		txtrHello.setText("hello");
-		GridBagConstraints gbc_txtrHello = new GridBagConstraints();
-		gbc_txtrHello.insets = new Insets(0, 0, 5, 5);
-		gbc_txtrHello.fill = GridBagConstraints.BOTH;
-		gbc_txtrHello.gridx = 0;
-		gbc_txtrHello.gridy = 11;
-		add(txtrHello, gbc_txtrHello);
 	}
 	
 	private void attachListeners(JTextArea a) {
