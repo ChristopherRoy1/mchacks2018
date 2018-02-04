@@ -5,7 +5,7 @@ import java.io.*;
 public class MeetingRecording implements Serializable, Recording{
 	private String subject, description, date, time;
 	
-	// Constructor:
+	// Constructors:
 	public MeetingRecording(String subject, String description, String date, String time) {
 		this.subject = subject;				// Subject (i.e MATH-323 or Town Hall Meeting)
 		this.description = description;		// Description (i.e Lecture on Graphs -- make this optional???)
@@ -13,13 +13,12 @@ public class MeetingRecording implements Serializable, Recording{
 		this.time = time;					// Start time in form hhmmT where T is either AM/PM (boolean?) 
 	}
 	
+	public MeetingRecording(String subject, String description) {
+		this.subject = subject;
+		this.description = description;
+	}
+	
 	// Getter Methods:
-	public String getTitle() {
-		return this.getSubject() + " (" + this.getDate() + "): " + this.getDescription();
-	}
-	public String getFilename() {
-		return this.getSubject() + " " + this.getMonth() + this.getDay();
-	}
 	public String getSubject() {
 		return this.subject;
 	}
@@ -73,15 +72,19 @@ public class MeetingRecording implements Serializable, Recording{
 	public String getDate() {
 		return this.getMonth() + " " + this.getDay() + ", " + this.getYear();
 	}
-	public String getTime() {
-		return this.time;
-	}
 	public String getHour() {
 		return this.time.substring(0,1);
 	}
 	public String getMinute() {
 		return this.time.substring(2,3);
-	}	
+	}
+	public String getTitle() {
+		return this.getSubject() + " (" + this.getDate() + "): " + this.getDescription();
+	}
+	public String getFilename() {
+		return this.getSubject() + " " + this.getMonth() + this.getDay();
+	}
+	
 	
 	// Setter Methods:
 	public void setSubject(String subject) {

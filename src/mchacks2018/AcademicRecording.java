@@ -5,7 +5,7 @@ import java.io.*;
 public class AcademicRecording implements Serializable, Recording{
 	private String prof, location, school, subject, description, date, time;
 	
-	// Constructor:
+	// Constructors:
 	public AcademicRecording(String prof, String location, String school, String subject, 
 			String description, String date, String time) {
 		this.prof = prof;
@@ -17,8 +17,7 @@ public class AcademicRecording implements Serializable, Recording{
 		this.time = time;					// Start time in form hhmmT where T is either AM/PM (boolean?) 
 	}
 	
-	public AcademicRecording(String prof, String location, String school, String subject, 
-			String description) {
+	public AcademicRecording(String prof, String location, String school, String subject, String description) {
 		this.prof = prof;
 		this.location = location;
 		this.school = school;
@@ -103,15 +102,16 @@ public class AcademicRecording implements Serializable, Recording{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	// Setter Methods:
+	public void setProf(String prof) {
+		this.prof = prof;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public void setSchool(String school) {
+		this.school = school;
+	}
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
