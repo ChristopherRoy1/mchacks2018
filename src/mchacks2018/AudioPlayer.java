@@ -10,22 +10,24 @@ public class AudioPlayer implements LineListener {
 	private boolean playing = false;
 	private Clip playingClip;
 	
-	public static void main(String [] args) {
-		String filename = "src/mchacks2018/sounds/test.wav";
-		AudioPlayer player = new AudioPlayer(filename);
-		player.playAudio();
-		player.wait(5);
-		player.pauseAudio();	
-		player.wait(2);
-		player.resumeAudio();
-		player.wait(2);
-		player.pauseAudio();
-		player.wait(1);
-		player.resumeAudio();
-		player.wait(10);
-		
-	}
-	public AudioPlayer(String filename) {
+//	public static void main(String [] args) {
+//		String filename = "src/mchacks2018/sounds/test.wav";
+//		AudioPlayer player = new AudioPlayer(filename);
+//		player.playAudio();
+//		player.wait(5);
+//		player.pauseAudio();	
+//		player.wait(2);
+//		player.resumeAudio();
+//		player.wait(2);
+//		player.pauseAudio();
+//		player.wait(1);
+//		player.resumeAudio();
+//		player.wait(10);
+//		
+//	}
+	
+	private static AudioPlayer myAudioPlayer = null;
+	private AudioPlayer(String filename) {
 		try {			
 			soundFile = new File(filename);			
 			playingClip = AudioSystem.getClip();
@@ -36,9 +38,15 @@ public class AudioPlayer implements LineListener {
 		} catch (Exception e) {
 			
 		}
-		
-		
 	}
+	
+	public static AudioPlayer getInstance(String filename) {
+		if(myAudioPlayer== null) {
+			myAudioPlayer = new AudioPlayer(filename);
+		}
+		return myAudioPlayer;
+	}
+	
 	public void playAudio() {
 		playingClip.addLineListener(this);
 		playingClip.start();
