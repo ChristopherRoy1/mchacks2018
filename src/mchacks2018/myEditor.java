@@ -38,9 +38,12 @@ public class myEditor extends JFrame implements ActionListener {
 	private JButton record;
 	private long lastTimeStampRecorded;
 	private long recordStart;
+	private JLabel lblRecordingInProcess;
+	private JButton btnStop;
 
 	public myEditor() {
 		super("Document");
+		
 		setSize(600, 600);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -109,6 +112,18 @@ public class myEditor extends JFrame implements ActionListener {
 
 		pane.add(scpane, BorderLayout.CENTER);
 		pane.add(toolBar, BorderLayout.SOUTH);
+
+		lblRecordingInProcess = new JLabel("Recording In Process...");
+		toolBar.add(lblRecordingInProcess);
+
+		btnStop = new JButton("Stop");
+		btnStop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// controller
+			}
+		});
+		btnStop.setHorizontalAlignment(SwingConstants.RIGHT);
+		toolBar.add(btnStop);
 		pane.add(topBar, BorderLayout.NORTH);
 
 		topBar.add(fontList);
@@ -118,6 +133,8 @@ public class myEditor extends JFrame implements ActionListener {
 		topBar.add(italicB);
 		topBar.add(underlineB);
 		topBar.add(record);
+
+		// toolBar.
 
 		fontList.setSelectedIndex(4);
 		fontSizeChooser.setSelectedIndex(5);
@@ -135,26 +152,34 @@ public class myEditor extends JFrame implements ActionListener {
 
 		tp.addMouseListener(new PopClickListener());
 
+		KeyStroke enterKeyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+		String bindingKey = enterKeyStroke.toString();
+
+		// get our input map and action map
 		int condition = JComponent.WHEN_FOCUSED;
-		InputMap iMap = tp.getInputMap(condition);
-		ActionMap aMap = tp.getActionMap();
+		InputMap inputMap = tp.getInputMap(condition); // only want when focused
+		ActionMap actionMap = tp.getActionMap();
 
-		String enter = "enter";
-		iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), enter);
-		aMap.put(enter, new AbstractAction() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				long currentTime = getTimeStamp();
-				//Controller(lastTimeStampRecorded, currentTime, getNote());
-				lastTimeStampRecorded = currentTime;
-			}
-		});
+		// set up the binding of the key stroke to the action
+		inputMap.put(enterKeyStroke, bindingKey);
+		actionMap.put(bindingKey, new enterAction());
 
 		setVisible(true);
 
 	}
-	
+
+	private class enterAction extends AbstractAction {
+		
+		public void actionPerformed(ActionEvent e) {
+			long currentTime = getTimeStamp();
+			// controller(lastTimeRecorded, currentTime, getNote());
+			lastTimeStampRecorded = currentTime;
+			String space = tp.getText();
+			space += "\r\n";
+			tp.setText(space);
+		}
+	}
+
 	private long getTimeStamp() {
 		return System.currentTimeMillis();
 	}
@@ -224,7 +249,8 @@ public class myEditor extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem choice = (JMenuItem) e.getSource();
 		JButton butchoice = (JButton) e.getSource();
-		
+		boolean recording = false;
+
 		clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
 		if (choice == saveI) {
 			// not yet implmented
@@ -266,20 +292,28 @@ public class myEditor extends JFrame implements ActionListener {
 		}
 
 		if (butchoice == record) {
-			recordStart = getTimeStamp();
-			lastTimeStampRecorded = recordStart;
-			//Controller.startRecording(recordStart);
+			if (!recording) {
+				recordStart = getTimeStamp();
+				lastTimeStampRecorded = recordStart;
+				record.setText("Stop");
+				recording = true;
+				// Controller.startRecording(recordStart);
+			} else {
+				// controller
+				recording = false;
+				record.setText("Record");
+			}
 		}
 	}
 
 	public static void main(String[] args) {
 		new myEditor();
 	}
-	
+
 	public String getNote() {
-	    String entireNote = tp.getText();
-	    String[] array = entireNote.split("\n"); 
-	    return array[array.length-1];
-	  }
+		String entireNote = tp.getText();
+		String[] array = entireNote.split("\n");
+		return array[array.length - 1];
+	}
 
 }
