@@ -1,8 +1,7 @@
 package mchacks2018;
 
 public class Note {
-	private final long recordingStart;
-	
+	private final long recordingStart;	
 	private final long noteStart;
 	private final long noteEnd;
 	private String content;
