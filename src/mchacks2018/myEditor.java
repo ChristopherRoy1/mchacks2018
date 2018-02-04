@@ -34,6 +34,10 @@ public class myEditor extends JFrame implements ActionListener {
 	private Clipboard clpbrd;
 	private Font newButtonFont;
 	private Action selectLine;
+	private JMenuItem anItem;
+	private JButton record;
+	private long lastTimeStampRecorded;
+	private long recordStart;
 
 	public myEditor() {
 		super("Document");
@@ -69,6 +73,7 @@ public class myEditor extends JFrame implements ActionListener {
 		boldB = new JButton("B");
 		italicB = new JButton("I");
 		underlineB = new JButton("U");
+		record = new JButton("Record");
 
 		newButtonFont = new Font(boldB.getFont().getName(), Font.BOLD, boldB.getFont().getSize());
 		boldB.setFont(newButtonFont);
@@ -112,6 +117,7 @@ public class myEditor extends JFrame implements ActionListener {
 		topBar.add(boldB);
 		topBar.add(italicB);
 		topBar.add(underlineB);
+		topBar.add(record);
 
 		fontList.setSelectedIndex(4);
 		fontSizeChooser.setSelectedIndex(5);
@@ -127,13 +133,30 @@ public class myEditor extends JFrame implements ActionListener {
 		statusI.addActionListener(this);
 		fontList.addActionListener(this);
 
-		// Color newColor = JColorChooser.showDialog(...);
-		// SimpleAttributeSet attr = new SimpleAttributeSet();
-		// StyleConstants.setForeground(attr, newColor);
-		// tp.setCharacterAttributes(attr, false);
-
 		tp.addMouseListener(new PopClickListener());
+
+		int condition = JComponent.WHEN_FOCUSED;
+		InputMap iMap = tp.getInputMap(condition);
+		ActionMap aMap = tp.getActionMap();
+
+		String enter = "enter";
+		iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), enter);
+		aMap.put(enter, new AbstractAction() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				long currentTime = getTimeStamp();
+				//Controller(lastTimeStampRecorded, currentTime, getNote());
+				lastTimeStampRecorded = currentTime;
+			}
+		});
+
 		setVisible(true);
+
+	}
+	
+	private long getTimeStamp() {
+		return System.currentTimeMillis();
 	}
 
 	class PopClickListener extends MouseAdapter {
@@ -176,21 +199,32 @@ public class myEditor extends JFrame implements ActionListener {
 				break;
 			}
 		}
-
 		return action;
 	}
 
 	class PopUpDemo extends JPopupMenu {
-		JMenuItem anItem;
 
 		public PopUpDemo() {
-			anItem = new JMenuItem("Listen 2 Recording");
+			anItem = new JMenuItem(new MyAction());
 			add(anItem);
+		}
+	}
+
+	public class MyAction extends AbstractAction {
+		public MyAction() {
+			super("Listen 2 Recording");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			String temp = tp.getSelectedText();
+			// use temp and run thru arraylist of Notes & then play the video
 		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem choice = (JMenuItem) e.getSource();
+		JButton butchoice = (JButton) e.getSource();
+		
 		clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
 		if (choice == saveI) {
 			// not yet implmented
@@ -220,6 +254,8 @@ public class myEditor extends JFrame implements ActionListener {
 				tp.replaceSelection(pad);
 			}
 
+		} else if (choice == anItem) {
+			System.out.println("Haha");
 		}
 
 		// tp.insert(pad, tp.getCaretPosition());
@@ -228,9 +264,22 @@ public class myEditor extends JFrame implements ActionListener {
 		else if (e.getSource() == statusI) {
 			// not yet implmented
 		}
+
+		if (butchoice == record) {
+			recordStart = getTimeStamp();
+			lastTimeStampRecorded = recordStart;
+			//Controller.startRecording(recordStart);
+		}
 	}
 
 	public static void main(String[] args) {
 		new myEditor();
 	}
+	
+	public String getNote() {
+	    String entireNote = tp.getText();
+	    String[] array = entireNote.split("\n"); 
+	    return array[array.length-1];
+	  }
+
 }
